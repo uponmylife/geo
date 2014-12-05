@@ -1,1 +1,1 @@
-web:    mvn spring-boot:run
+web: java -jar target/lotto-1.0-SNAPSHOT.jar
