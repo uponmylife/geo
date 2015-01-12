@@ -1,8 +1,18 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
 #include("head.vm")
 </head>
 <body>
+<table class="table">
+    #foreach ($stat in $stats)
+        <tr>
+            <td><h5><em>$stat.type</em></h5></td>
+            <td><h4>$stat.score</h4></td>
+            <td><h4 class="#color($stat.level)"><strong>$stat.levelName</strong></h4></td>
+        </tr>
+    #end
+</table>
 <form class="row">
     <div class="col-xs-4 col-xs-offset-4">
         <select class="form-control">
@@ -12,9 +22,10 @@
         </select>
     </div>
     <div class="col-xs-4">
-        <button type="submit" class="button">Save</button>
+        <button type="submit" class="btn btn-default">Save</button>
     </div>
 </form>
+<br>
 <table class="table">
     <tr><th>Date</th><th>Hours</th><th>Count</th><th>Score</th></tr>
     #foreach ($smoke in $smokes)
@@ -22,9 +33,17 @@
             <td>$smoke.formattedDate</td>
             <td>$smoke.termHours</td>
             <td>$smoke.count</td>
-            <td>$smoke.hoursPerSmoke</td>
+            <td>$smoke.score</td>
         </tr>
     #end
 </table>
 </body>
 </html>
+
+#macro(color $level)
+    #if ($level == 1) text-primary #end
+    #if ($level == 2) text-warning #end
+    #if ($level == 3) text-muted #end
+    #if ($level == 4) text-danger #end
+    #if ($level == 5) text-success #end
+#end

@@ -28,7 +28,7 @@ public class Smoke {
         return (int)millisi2Hours(term);
     }
 
-    public String getHoursPerSmoke() {
+    public String getScore() {
         return String.format("%.1f", millisi2Hours(term) / (double)count);
     }
 
