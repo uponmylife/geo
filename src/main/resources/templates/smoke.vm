@@ -3,17 +3,6 @@
 #include("head.vm")
 </head>
 <body>
-<table class="table">
-    <tr><th>Date</th><th>Hours</th><th>Count</th><th>Score</th></tr>
-    #foreach ($smoke in $smokes)
-        <tr>
-            <td>$smoke.formattedDate</td>
-            <td>$smoke.termHours</td>
-            <td>$smoke.count</td>
-            <td>$smoke.hoursPerSmoke</td>
-        </tr>
-    #end
-</table>
 <form class="row">
     <div class="col-xs-4 col-xs-offset-4">
         <select class="form-control">
@@ -26,5 +15,16 @@
         <button type="submit" class="button">Save</button>
     </div>
 </form>
+<table class="table">
+    <tr><th>Date</th><th>Hours</th><th>Count</th><th>Score</th></tr>
+    #foreach ($smoke in $smokes)
+        <tr>
+            <td>$smoke.formattedDate</td>
+            <td>$smoke.termHours</td>
+            <td>$smoke.count</td>
+            <td>$smoke.hoursPerSmoke</td>
+        </tr>
+    #end
+</table>
 </body>
 </html>
