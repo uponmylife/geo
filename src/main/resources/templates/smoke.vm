@@ -16,14 +16,14 @@
 </table>
 <form class="row">
     <div class="col-xs-4 col-xs-offset-4">
-        <select class="form-control">
+        <select name="count" class="form-control">
             #foreach ($count in [1..40])
                 <option #if ($count==20) selected #end>$count</option>
             #end
         </select>
     </div>
     <div class="col-xs-4">
-        <button type="submit" class="button">Save</button>
+        <button type="submit" class="button">Submit</button>
     </div>
 </form>
 </body>

@@ -1,15 +1,22 @@
 package geo.smoke;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Entity
 @Data
 @NoArgsConstructor
 public class Smoke {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private Date date;
     private long term;
     private int count;
@@ -25,14 +32,14 @@ public class Smoke {
     }
 
     public int getTermHours() {
-        return (int)millisi2Hours(term);
+        return (int) millisi2Hours(term);
     }
 
     public String getHoursPerSmoke() {
-        return String.format("%.1f", millisi2Hours(term) / (double)count);
+        return String.format("%.1f", millisi2Hours(term) / (double) count);
     }
 
     private double millisi2Hours(Long millis) {
-        return (int) ((double)millis / (double)(1000*60*60));
+        return (int) ((double) millis / (double) (1000 * 60 * 60));
     }
 }
