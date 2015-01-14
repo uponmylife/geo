@@ -13,7 +13,7 @@
         </tr>
     #end
 </table>
-<form action="POST" class="row">
+<form method="post" class="row">
     <div class="col-xs-4 col-xs-offset-4">
         <select name="count" class="form-control">
             #foreach ($count in [1..40])

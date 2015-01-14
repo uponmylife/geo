@@ -16,7 +16,7 @@ public class StatView {
 
     public static double[] LEVEL_SCORE = {0.0, 4.0, 6.0, 8.0, 12.0, 24.0};
     public static String[] LEVEL_NAME = {"HEAVY SMOKER", "STARTED", "EXCELLENT", "SMOKER", "RUNNER", "MASTER"};
-    public enum Type {WEEK, MONTH, QUARTER, HALF, YEAR}
+    public enum Type {DAY3, WEEK, MONTH, QUARTER, HALF, YEAR}
 
     public String getLevelName() {
         return LEVEL_NAME[level];

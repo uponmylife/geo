@@ -17,7 +17,10 @@ public class SmokeService {
     public void addSmoke(int count) {
         Date prevDate = null;
         Smoke lastSmoke = repository.findTop1ByOrderByDateDesc();
-        if (lastSmoke != null) prevDate = lastSmoke.getDate();
+        if (lastSmoke != null) {
+            prevDate = lastSmoke.getDate();
+            if (DateUtil.isSameDay(prevDate, new Date())) throw new RuntimeException("only one submit for one day.");
+        }
         repository.save(new Smoke(prevDate, count));
     }
 
@@ -28,23 +31,16 @@ public class SmokeService {
     }
 
     public List<StatView> getStatViews() {
-        List<Stat> views = new ArrayList<Stat>();
-
+        List<StatView> views = new ArrayList<StatView>();
         List<Smoke> smokes = repository.findByOrderByDateAsc();
         StatRepository statRepository = new StatRepository(smokes);
-
-
-        return null;
-
+        views.add(new StatView(StatView.Type.DAY3, statRepository.getAvgScore(3)));
+        views.add(new StatView(StatView.Type.WEEK, statRepository.getAvgScore(7)));
+        views.add(new StatView(StatView.Type.MONTH, statRepository.getAvgScore(30)));
+        views.add(new StatView(StatView.Type.QUARTER, statRepository.getAvgScore(91)));
+        views.add(new StatView(StatView.Type.HALF, statRepository.getAvgScore(182)));
+        views.add(new StatView(StatView.Type.YEAR, statRepository.getAvgScore(365)));
+        return views;
     }
 
-    private Double getAvgScore(StatRepository statRepository, int daysAgo) {
-        Date now = new Date();
-        Date startDate = DateUtils.addDays(now, -1 * daysAgo);
-        List<Stat> stats = statRepository.findAll(DateUtil.startOfDay(startDate), now);
-        if (stats.size() == 0 || stats.get(0).hasSameDay(startDate)) return null;
-        double sum = 0.0;
-        for (Stat stat : stats) sum += (stat.getScore() * stat.getWeight());
-        return sum / (double) stats.size();
-    }
 }

@@ -12,9 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 public class StatRepository {
     private List<Stat> stats = new ArrayList<Stat>();
+    private Date now;
 
     public StatRepository(List<Smoke> smokes) {
         for (Smoke smoke : smokes) if (smoke.hasPrevDate()) stats.addAll(generate(smoke));
+        if (smokes.size()>0) now = smokes.get(smokes.size()-1).getDate();
     }
 
     List<Stat> generate(Smoke smoke) {
@@ -35,9 +37,23 @@ public class StatRepository {
         else return (24 - hours) / 24.0;
     }
 
-    public List<Stat> findAll(Date startDate, Date endDate) {
+    List<Stat> findAll(Date startDate, Date endDate) {
         List<Stat> result = new ArrayList<Stat>();
         for (Stat stat : stats) if (stat.between(startDate, endDate)) result.add(stat);
         return result;
+    }
+
+    public Double getAvgScore(int daysAgo) {
+        Date startDate = DateUtils.addDays(now, -1 * daysAgo);
+        List<Stat> stats = findAll(DateUtil.startOfDay(startDate), now);
+        if (stats.size() == 0 || !stats.get(0).hasSameDay(startDate)) return null;
+        double sum = 0.0;
+        double weightSum = 0.0;
+        for (Stat stat : stats) {
+            System.out.println(stat);
+            sum += (stat.getScore() * stat.getWeight());
+            weightSum += stat.getWeight();
+        }
+        return sum / weightSum;
     }
 }
