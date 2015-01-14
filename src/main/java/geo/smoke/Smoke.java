@@ -2,6 +2,7 @@ package geo.smoke;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang.time.DateUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,25 +22,30 @@ public class Smoke {
     private long term;
     private int count;
 
-    public Smoke(Date date, int termHours, int count) {
-        this.date = date;
-        this.term = termHours * 60 * 60 * 1000;
+    public Smoke(Date prevDate, int count) {
+        this(prevDate, count, new Date());
+    }
+
+    public Smoke(Date prevDate, int count, Date now) {
+        date = now;
         this.count = count;
+        if (prevDate == null) term = 0l;
+        else term = date.getTime() - prevDate.getTime();
     }
 
-    public String getFormattedDate() {
-        return new SimpleDateFormat("M.d").format(date);
+    public double getScore() {
+        return millisi2Hours(term) / (double)count;
     }
 
-    public int getTermHours() {
-        return (int) millisi2Hours(term);
+    public Date getPrevDate() {
+        return new Date(date.getTime() - term);
     }
 
-    public String getScore() {
-        return String.format("%.1f", millisi2Hours(term) / (double)count);
+    public boolean hasPrevDate() {
+        return term > 0l;
     }
 
     private double millisi2Hours(Long millis) {
-        return (int) ((double) millis / (double) (1000 * 60 * 60));
+        return (double) millis / (double) DateUtils.MILLIS_PER_HOUR;
     }
 }

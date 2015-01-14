@@ -20,12 +20,12 @@ public class SmokeRepositoryTest {
     private SmokeRepository repository;
 
     @Test
-    public void save() throws Exception {
-        repository.save(new Smoke(new Date(), 40, 20));
+    public void testFindTop1ByOrderByDateDesc() throws Exception {
+        repository.save(new Smoke(new Date(), 20));
         Thread.sleep(10);
-        repository.save(new Smoke(new Date(), 24, 10));
+        repository.save(new Smoke(new Date(), 10));
         Thread.sleep(10);
-        repository.save(new Smoke(new Date(), 60, 30));
+        repository.save(new Smoke(new Date(), 30));
         System.out.println(repository.findTop1ByOrderByDateDesc());
     }
 }

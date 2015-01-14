@@ -30,10 +30,10 @@
     <tr><th>Date</th><th>Hours</th><th>Count</th><th>Score</th></tr>
     #foreach ($smoke in $smokes)
         <tr>
-            <td>$smoke.formattedDate</td>
+            <td>$smoke.date</td>
             <td>$smoke.termHours</td>
             <td>$smoke.count</td>
-            <td>$smoke.score</td>
+            <td>$smoke.scoreStr</td>
         </tr>
     #end
 </table>

@@ -7,22 +7,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.*;
 
+import static geo.smoke.StatView.Type.*;
+
 @Controller
 @RequestMapping("/smoke")
 public class SmokeController {
-//    @Autowired
-    private SmokeRepository repository;
+    @Autowired
+    private SmokeService service;
 
     @RequestMapping(method = RequestMethod.GET)
     public String form(Map<String, Object> model) {
-        model.put("stats", Arrays.asList(new Stat(WEEK, 7.2), new Stat(MONTH, 5.5), new Stat(QUARTER, 1.1)));
-        model.put("smokes", Arrays.asList(new Smoke(new Date(), 40, 20), new Smoke(new Date(), 30, 20), new Smoke(new Date(), 23, 8)));
+        model.put("stats", Arrays.asList(new StatView(WEEK, 7.2), new StatView(MONTH, 5.5), new StatView(QUARTER, 1.1)));
+        model.put("smokes", service.getSmokeViews());
         return "smoke";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String submit(Map<String, Object> model, int count) {
-        System.out.println("count=" + count);
+        service.addSmoke(count);
         return form(model);
     }
 }
