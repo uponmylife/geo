@@ -13,7 +13,7 @@
         </tr>
     #end
 </table>
-<form class="row">
+<form action="POST" class="row">
     <div class="col-xs-4 col-xs-offset-4">
         <select name="count" class="form-control">
             #foreach ($count in [1..40])
@@ -33,7 +33,7 @@
             <td>$smoke.date</td>
             <td>$smoke.termHours</td>
             <td>$smoke.count</td>
-            <td>$smoke.scoreStr</td>
+            <td>$smoke.score</td>
         </tr>
     #end
 </table>

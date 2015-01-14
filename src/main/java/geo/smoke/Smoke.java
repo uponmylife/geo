@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -34,7 +33,7 @@ public class Smoke {
     }
 
     public double getScore() {
-        return millisi2Hours(term) / (double)count;
+        return millisi2Hours(term) / (double) count;
     }
 
     public Date getPrevDate() {
