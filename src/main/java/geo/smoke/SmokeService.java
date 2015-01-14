@@ -34,12 +34,25 @@ public class SmokeService {
         List<StatView> views = new ArrayList<StatView>();
         List<Smoke> smokes = repository.findByOrderByDateAsc();
         StatRepository statRepository = new StatRepository(smokes);
-        views.add(new StatView(StatView.Type.DAY3, statRepository.getAvgScore(3)));
-        views.add(new StatView(StatView.Type.WEEK, statRepository.getAvgScore(7)));
-        views.add(new StatView(StatView.Type.MONTH, statRepository.getAvgScore(30)));
-        views.add(new StatView(StatView.Type.QUARTER, statRepository.getAvgScore(91)));
-        views.add(new StatView(StatView.Type.HALF, statRepository.getAvgScore(182)));
-        views.add(new StatView(StatView.Type.YEAR, statRepository.getAvgScore(365)));
+
+        Double day3Score = statRepository.getAvgScore(3);
+        if (day3Score != null) views.add(new StatView(StatView.Type.DAY3, day3Score));
+
+        Double weekScore = statRepository.getAvgScore(7);
+        if (weekScore !=null) views.add(new StatView(StatView.Type.WEEK, weekScore));
+
+        Double monthScore = statRepository.getAvgScore(30);
+        if (monthScore != null) views.add(new StatView(StatView.Type.MONTH, monthScore));
+
+        Double quarterScore = statRepository.getAvgScore(91);
+        if (quarterScore != null) views.add(new StatView(StatView.Type.QUARTER, quarterScore));
+
+        Double halfScore = statRepository.getAvgScore(182);
+        if (halfScore != null) views.add(new StatView(StatView.Type.HALF, halfScore));
+
+        Double yearScore = statRepository.getAvgScore(365);
+        if (yearScore != null) views.add(new StatView(StatView.Type.YEAR, yearScore));
+
         return views;
     }
 

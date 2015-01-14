@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class StatView {
     private Type type;
-    private double score;
+    private String score;
     private int level;
 
     public StatView(Type type, double score) {
         this.type = type;
-        this.score = score;
+        this.score = String.format("%.1f", score);
         for (int i=0; i<LEVEL_SCORE.length; i++) if (score >= LEVEL_SCORE[i]) level = i;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -27,12 +28,5 @@ public class SmokeController {
     public String submit(Map<String, Object> model, int count) {
         service.addSmoke(count);
         return "redirect:/smoke";
-    }
-
-    @ExceptionHandler(Exception.class)
-    public String handleException(Map<String, Object> model, Exception e) {
-        log.error(e.toString(), e);
-        model.put("message", e.toString());
-        return "error";
     }
 }

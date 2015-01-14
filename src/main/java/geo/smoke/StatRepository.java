@@ -44,16 +44,16 @@ public class StatRepository {
     }
 
     public Double getAvgScore(int daysAgo) {
+        if (now == null) return null;
         Date startDate = DateUtils.addDays(now, -1 * daysAgo);
         List<Stat> stats = findAll(DateUtil.startOfDay(startDate), now);
         if (stats.size() == 0 || !stats.get(0).hasSameDay(startDate)) return null;
         double sum = 0.0;
         double weightSum = 0.0;
         for (Stat stat : stats) {
-            System.out.println(stat);
-            sum += (stat.getScore() * stat.getWeight());
             weightSum += stat.getWeight();
+            sum += stat.getWeight()/stat.getScore();
         }
-        return sum / weightSum;
+        return weightSum / sum;
     }
 }

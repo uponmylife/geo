@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -21,11 +21,11 @@ public class SmokeRepositoryTest {
 
     @Test
     public void testFindTop1ByOrderByDateDesc() throws Exception {
-        repository.save(new Smoke(new Date(), 20));
-        Thread.sleep(10);
-        repository.save(new Smoke(new Date(), 10));
-        Thread.sleep(10);
-        repository.save(new Smoke(new Date(), 30));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        repository.save(new Smoke(sdf.parse("20150101"), 0, sdf.parse("20150102")));
+        repository.save(new Smoke(sdf.parse("20150102"), 10, sdf.parse("20150103")));
+        repository.save(new Smoke(sdf.parse("20150103"), 5, sdf.parse("20150104")));
+        repository.save(new Smoke(sdf.parse("20150104"), 10, sdf.parse("20150108")));
         System.out.println(repository.findTop1ByOrderByDateDesc());
     }
 }

@@ -12,9 +12,9 @@ public class SmokeView {
     private String score;
 
     public SmokeView(Smoke smoke) {
-        date = DateFormatUtils.format(smoke.getDate(), "y.M.d HH:mm");
+        date = DateFormatUtils.format(smoke.getDate(), "MM/dd HH:mm");
         termHours = (int) (smoke.getTerm() / DateUtils.MILLIS_PER_HOUR);
         count = smoke.getCount();
-        score = String.format("%.1f", getScore());
+        score = String.format("%.1f", smoke.getScore());
     }
 }

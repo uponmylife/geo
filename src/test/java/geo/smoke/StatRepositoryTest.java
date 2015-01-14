@@ -43,8 +43,7 @@ public class StatRepositoryTest {
         Date d4 = newDate("20150103 0600");
         List<Smoke> smokes = Arrays.asList(new Smoke(null, 0, d1), new Smoke(d1, 10, d2), new Smoke(d2, 10, d4));
         StatRepository repo = new StatRepository(smokes);
-        Double avgScore = repo.getAvgScore(3);
-        System.out.println(avgScore);
+        assertEquals(3.6, repo.getAvgScore(3), 0.01);
     }
 
     private Date newDate(String dateString) {

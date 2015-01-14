@@ -33,6 +33,7 @@ public class Smoke {
     }
 
     public double getScore() {
+        if (term == 0l || count == 0) return 0.0;
         return millisi2Hours(term) / (double) count;
     }
 
