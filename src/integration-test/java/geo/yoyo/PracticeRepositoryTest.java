@@ -21,12 +21,22 @@ public class PracticeRepositoryTest {
 
     @Test
     public void test() throws Exception {
-        repository.save(new Practice(new Practice.Pk("20150120", 0), 20));
-        repository.save(new Practice(new Practice.Pk("20150120", 1), 20));
-        repository.save(new Practice(new Practice.Pk("20150120", 2), 20));
-        repository.save(new Practice(new Practice.Pk("20150121", 0), 20));
-        repository.save(new Practice(new Practice.Pk("20150121", 3), 20));
-        repository.save(new Practice(new Practice.Pk("20150121", 4), 20));
+        repository.save(new Practice(new Practice.Pk("20150120", 0), 25));
+        repository.save(new Practice(new Practice.Pk("20150120", 1), 25));
+        repository.save(new Practice(new Practice.Pk("20150120", 2), 25));
+
+        repository.save(new Practice(new Practice.Pk("20150121", 0), 25));
+        repository.save(new Practice(new Practice.Pk("20150121", 3), 25));
+        repository.save(new Practice(new Practice.Pk("20150121", 4), 25));
+
+        repository.save(new Practice(new Practice.Pk("20150122", 0), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 1), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 2), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 3), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 4), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 5), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 6), 25));
+        repository.save(new Practice(new Practice.Pk("20150122", 7), 25));
 
     }
 }

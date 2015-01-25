@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+#include("head.vm")
+</head>
+<body>
+
+<form method="post">
+    <div class="row">
+        <div class="col-xs-5 col-xs-offset-1">
+            #foreach ($practiceType in $practiceTypes)
+                #if ($foreach.index == $practiceTypes.size()/2)
+                </div><div class="col-xs-5">
+                #end
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="practices" value="$practiceType.code"> $practiceType.name
+                    </label>
+                </div>
+            #end
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default btn-sm btn-block">Done</button>
+
+    <table class="table table table-condensed">
+        <tr>
+            <th></th>
+            #foreach ($practiceType in [0..7])
+                <th><img src="images/#icon($practiceType)" width="18" height="18"></th>
+            #end
+            <th></th>
+        </tr>
+        #foreach ($report in $reports)
+            <tr>
+                <td>$report.range</td>
+                #foreach ($score in $report.scores)
+                    <td>$score</td>
+                #end
+            </tr>
+        #end
+    </table>
+
+    <table class="table table table-condensed">
+        #foreach ($rec in $records)
+            <tr>
+                <td>$rec.date</td>
+                #foreach ($practice in $rec.practices)
+                    <td width="18">#if ($practice) <img src="images/#icon($foreach.index)" width="18" height="18"> #end</td>
+                #end
+                <td class="text-right">$rec.score</td>
+            </tr>
+        #end
+
+    </table>
+</form>
+</body>
+</html>
+
+#macro(icon $type)
+    #if ($type == 0) meal.png #end
+    #if ($type == 1) fasting.png #end
+    #if ($type == 2) snack.png #end
+    #if ($type == 3) drink.png #end
+    #if ($type == 4) water.png #end
+    #if ($type == 5) running.png #end
+    #if ($type == 6) foot.png #end
+    #if ($type == 7) sleep.png #end
+#end

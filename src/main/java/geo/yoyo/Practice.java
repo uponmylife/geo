@@ -23,9 +23,9 @@ public class Practice {
     private int score;
 
     public static final String DATE_STRING_PATTERN = "yyyyMMdd";
-    public static String[] TYPE_NAMES = {"NormalMeal", "PauseEating", "Running", "EarlySleep", "Sober"};
 
     @Embeddable
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Pk implements Serializable {
@@ -36,16 +36,14 @@ public class Practice {
             day = toDay(date);
             this.type = type;
         }
-
-        @Override
-        public boolean equals(Object obj) {
-            Pk anotherPk = (Pk) obj;
-            return  day.equals(anotherPk.day) && type.equals(anotherPk.type);
-        }
     }
 
-    public boolean isAt(Date date) {
-        return pk.day.equals(toDay(date));
+    public String getDay() {
+        return pk.day;
+    }
+
+    public Integer getType() {
+        return pk.type;
     }
 
     public Date getDate() {

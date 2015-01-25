@@ -25,13 +25,15 @@ public class ReportCreator {
         for (Practice practice : dayDescOrderedPractices) practiceMap.put(practice.getPk(), practice.getScore());
 
         for (int rangeType : rangeTypes) {
-            int sum = 0;
-            int len = Practice.TYPE_NAMES.length;
+            double sum = 0.0;
+            int len = PracticeType.size();
             int[] practiceTypeReports = new int[len + 1];
             for (int practiceType=0; practiceType<len; practiceType++) {
-                practiceTypeReports[practiceType] = getAvgScore(rangeType, practiceType);
+                double typeAvgScore = getAvgScore(rangeType, practiceType);
+                practiceTypeReports[practiceType] = (int)typeAvgScore;
+                sum += typeAvgScore;
             }
-            practiceTypeReports[len] = sum / len;
+            practiceTypeReports[len] = (int) sum;
             rangeTypeReports.add(practiceTypeReports);
         }
     }
@@ -46,7 +48,7 @@ public class ReportCreator {
         return reports;
     }
 
-    int getAvgScore(int dayRange, Integer type) {
+    double getAvgScore(int dayRange, Integer type) {
         int sum = 0;
         for (int dayDelta = 0; dayDelta<dayRange; dayDelta++) {
             Date date = DateUtils.addDays(baseDate, -1 * dayDelta);
@@ -54,7 +56,7 @@ public class ReportCreator {
             if (score == null) score = 0;
             sum += score;
         }
-        return sum / dayRange;
+        return (double)sum / (double)dayRange;
     }
 
     // for test
