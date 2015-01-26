@@ -21,15 +21,16 @@
         </div>
     </div>
     <button type="submit" class="btn btn-default btn-sm btn-block">Done</button>
+    <br>
 
-    <table class="table table-condensed">
+    <div class="bg-primary">
         #foreach ($report in $reports)
-            <tr onclick="toggleReportDetail()">
-                <td>$report.range</td>
-                <td>$report.score</td>
-                <td>$report.level</td>
-            </tr>
-            <div id="reportDetail">
+            <div onclick="toggleReportDetail($foreach.index)" class="row">
+                <div class="col-xs-4 col-xs-offset-1"><h4>$report.range</h4></div>
+                <div class="col-xs-2 text-right"><h4>$report.score</h4></div>
+                <div class="col-xs-3 text-right"><h4>$report.level</h4></div>
+            </div>
+            <div id="reportDetail$foreach.index" style="display:none">
                 <table class="table table-condensed">
                     #foreach ($practiceType in [0..7])
                         <th><img src="images/#icon($practiceType)" width="18" height="18"></th>
@@ -42,7 +43,8 @@
                 </table>
             </div>
         #end
-    </table>
+    </div>
+    <br>
 
     <table class="table table table-condensed">
         #foreach ($rec in $records)
@@ -60,10 +62,9 @@
 </body>
 </html>
 
-<script type="text/javascript">
-function toggleReportDetail() {
-    alert("toggleReportDetail");
-    $("#reportDetail").toggle("slow");
+<script>
+function toggleReportDetail(index) {
+    $("#reportDetail" + index).toggle("slow");
 }
 </script>
 
