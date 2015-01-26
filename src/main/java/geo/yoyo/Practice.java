@@ -23,6 +23,11 @@ public class Practice {
     private int score;
 
     public static final String DATE_STRING_PATTERN = "yyyyMMdd";
+    public static final int DEFAULT_SCORE = 25;
+
+    public Practice(Date date, Integer type) {
+        this(new Pk(date, type), DEFAULT_SCORE);
+    }
 
     @Embeddable
     @Data

@@ -18,9 +18,8 @@ public class YoyoController {
     @RequestMapping(method = RequestMethod.GET)
     public String form(Map<String, Object> model) {
         List<Practice> practices = practiceRepository.findByOrderByPkDayDesc();
-        List<Report> reports = ReportCreator.create(practices);
         model.put("practiceTypes", PracticeType.findAll());
-        model.put("reports", reports);
+        model.put("reports", new ReportCreator(practices).getReports());
         model.put("records", new DayRecordCreator(practices).create());
         return "yoyo";
     }
@@ -28,7 +27,7 @@ public class YoyoController {
     @RequestMapping(method = RequestMethod.POST)
     public String submit(Integer[] practices) {
         for (int practiceType : practices)
-            practiceRepository.save(new Practice(new Practice.Pk(new Date(), practiceType), 25));
+            practiceRepository.save(new Practice(new Date(), practiceType));
         return "redirect:/yoyo";
     }
 }

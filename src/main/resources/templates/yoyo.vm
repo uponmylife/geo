@@ -22,21 +22,25 @@
     </div>
     <button type="submit" class="btn btn-default btn-sm btn-block">Done</button>
 
-    <table class="table table table-condensed">
-        <tr>
-            <th></th>
-            #foreach ($practiceType in [0..7])
-                <th><img src="images/#icon($practiceType)" width="18" height="18"></th>
-            #end
-            <th></th>
-        </tr>
+    <table class="table table-condensed">
         #foreach ($report in $reports)
-            <tr>
+            <tr onclick="toggleReportDetail()">
                 <td>$report.range</td>
-                #foreach ($score in $report.scores)
-                    <td>$score</td>
-                #end
+                <td>$report.score</td>
+                <td>$report.level</td>
             </tr>
+            <div id="reportDetail">
+                <table class="table table-condensed">
+                    #foreach ($practiceType in [0..7])
+                        <th><img src="images/#icon($practiceType)" width="18" height="18"></th>
+                    #end
+                    <tr>
+                        #foreach ($score in $report.typeScore)
+                            <td>$score</td>
+                        #end
+                    </tr>
+                </table>
+            </div>
         #end
     </table>
 
@@ -55,6 +59,13 @@
 </form>
 </body>
 </html>
+
+<script type="text/javascript">
+function toggleReportDetail() {
+    alert("toggleReportDetail");
+    $("#reportDetail").toggle("slow");
+}
+</script>
 
 #macro(icon $type)
     #if ($type == 0) meal.png #end

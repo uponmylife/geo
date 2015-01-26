@@ -7,5 +7,18 @@ import lombok.Data;
 @AllArgsConstructor
 public class Report {
     private String range;
-    private int[] scores;
+    private int[] typeScore;
+    private int score;
+
+    public String getLevel() {
+        if (score < Practice.DEFAULT_SCORE) return "FAT";
+        if (score < Practice.DEFAULT_SCORE * 2) return "STARTER";
+        if (score < Practice.DEFAULT_SCORE * 3) return "GOOD";
+        if (score < Practice.DEFAULT_SCORE * 4) return "GREAT";
+        if (score < Practice.DEFAULT_SCORE * 5) return "HUMAN";
+        if (score < Practice.DEFAULT_SCORE * 6) return "MAN";
+        if (score < Practice.DEFAULT_SCORE * 7) return "CHARMER";
+        if (score < Practice.DEFAULT_SCORE * 8) return "ACTOR";
+        return "HERO";
+    }
 }

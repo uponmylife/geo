@@ -13,9 +13,11 @@ public class ReportCreator {
     private static final int[] RANGE_TYPES = {3, 7, 15, 30, 91, 182, 365};
     public static final String[] RANGE_TYPE_NAMES = {"3 DAYS", "WEEK", "HALF MONTH", "MONTH", "QUARTER", "HALF", "YEAR"};
     private List<Integer> rangeTypes = new ArrayList<Integer>();
-    private List<int[]> rangeTypeReports = new ArrayList<int[]>();
+    private List<Report> reports = new ArrayList<Report>();
 
-    private ReportCreator(List<Practice> dayDescOrderedPractices) {
+    public ReportCreator(List<Practice> dayDescOrderedPractices) {
+        if (dayDescOrderedPractices.size()<1) return;
+
         Date recentDate = dayDescOrderedPractices.get(0).getDate();
         Date oldestDate = dayDescOrderedPractices.get(dayDescOrderedPractices.size() - 1).getDate();
         baseDate = DateUtils.isSameDay(recentDate, today()) ? today() : yesterday();
@@ -24,28 +26,18 @@ public class ReportCreator {
         for (int rangeType : RANGE_TYPES) if (ableDays >= rangeType) rangeTypes.add(rangeType);
         for (Practice practice : dayDescOrderedPractices) practiceMap.put(practice.getPk(), practice.getScore());
 
-        for (int rangeType : rangeTypes) {
+
+        for (int i=0; i<rangeTypes.size(); i++) {
             double sum = 0.0;
             int len = PracticeType.size();
-            int[] practiceTypeReports = new int[len + 1];
+            int[] practiceTypeScores = new int[len];
             for (int practiceType=0; practiceType<len; practiceType++) {
-                double typeAvgScore = getAvgScore(rangeType, practiceType);
-                practiceTypeReports[practiceType] = (int)typeAvgScore;
+                double typeAvgScore = getAvgScore(rangeTypes.get(i), practiceType);
+                practiceTypeScores[practiceType] = (int)typeAvgScore;
                 sum += typeAvgScore;
             }
-            practiceTypeReports[len] = (int) sum;
-            rangeTypeReports.add(practiceTypeReports);
+            reports.add(new Report(RANGE_TYPE_NAMES[i], practiceTypeScores, (int) sum));
         }
-    }
-
-    public static List<Report> create(List<Practice> dayDescOrderedPractices) {
-        List<Report> reports = new ArrayList<Report>();
-        if (dayDescOrderedPractices.size()<1) return reports;
-        int i = 0;
-        for (int[] rangeTypeReport : new ReportCreator(dayDescOrderedPractices).rangeTypeReports) {
-            reports.add(new Report(RANGE_TYPE_NAMES[i++], rangeTypeReport));
-        }
-        return reports;
     }
 
     double getAvgScore(int dayRange, Integer type) {
@@ -57,6 +49,10 @@ public class ReportCreator {
             sum += score;
         }
         return (double)sum / (double)dayRange;
+    }
+
+    public List<Report> getReports() {
+        return reports;
     }
 
     // for test
