@@ -3,9 +3,16 @@
 <head>
 #include("head.vm")
 </head>
-<body>
+<body onload="onload()">
 
 <form method="post">
+    <label class="radio-inline">
+        <input type="radio" name="dayAgo" value="0"> Today
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="dayAgo" value="-1"> Yesterday
+    </label>
+
     <div class="row">
         <div class="col-xs-6 col-xs-offset-1">
             #foreach ($practiceType in $practiceTypes)
@@ -14,7 +21,9 @@
                 #end
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="practices" value="$practiceType.code"> <strong> $practiceType.name </strong>
+                        <input type="checkbox" name="practices" value="$practiceType.code"
+                            #if ($formDefault.contains($practiceType.code)) checked #end>
+                        <strong> $practiceType.name </strong>
                     </label>
                 </div>
             #end
@@ -63,6 +72,14 @@
 </html>
 
 <script>
+function onload() {
+    $('input[type=radio][name=dayAgo]').change(function() {
+        location.href = '/yoyo?dayAgo=' + this.value;
+    });
+
+    $('input:radio[name="dayAgo"]').filter('[value="$dayAgo"]').attr('checked', true);
+}
+
 function toggleReportDetail(index) {
     $("#reportDetail" + index).toggle("slow");
 }

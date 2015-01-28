@@ -47,6 +47,10 @@ public class Practice {
         return pk.day;
     }
 
+    public boolean isSameDay(Date date) {
+        return toDay(date).equals(pk.day);
+    }
+
     public Integer getType() {
         return pk.type;
     }
