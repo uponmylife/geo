@@ -38,8 +38,18 @@ public class YoyoController {
     @RequestMapping(method = RequestMethod.POST)
     public String submit(Integer dayAgo, Integer[] practices) {
         Date date = DateUtils.addDays(new Date(), dayAgo);
-        for (int practiceType : practices)
-            practiceRepository.save(new Practice(date, practiceType));
+        boolean[] practiceArray = getPracticeArray(practices);
+        for (int i=0; i<practiceArray.length; i++) {
+            if (practiceArray[i]) practiceRepository.save(new Practice(date, i));
+            else practiceRepository.delete(new Practice(date, i));
+        }
         return "redirect:/yoyo?dayAgo=" + dayAgo;
+    }
+
+    private boolean[] getPracticeArray(Integer[] practices) {
+        boolean[] array = new boolean[PracticeType.size()];
+        if (practices == null) return array;
+        for (int practiceType : practices) array[practiceType] = true;
+        return array;
     }
 }
