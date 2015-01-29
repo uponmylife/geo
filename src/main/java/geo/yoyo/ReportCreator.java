@@ -22,7 +22,7 @@ public class ReportCreator {
         Date oldestDate = dayDescOrderedPractices.get(dayDescOrderedPractices.size() - 1).getDate();
         baseDate = DateUtils.isSameDay(recentDate, today()) ? today() : yesterday();
 
-        int ableDays = diffDay(baseDate, oldestDate);
+        int ableDays = diffDay(baseDate, oldestDate) + 1;
         for (int rangeType : RANGE_TYPES) if (ableDays >= rangeType) rangeTypes.add(rangeType);
         for (Practice practice : dayDescOrderedPractices) practiceMap.put(practice.getPk(), practice.getScore());
 
