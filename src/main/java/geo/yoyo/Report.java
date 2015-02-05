@@ -11,13 +11,13 @@ public class Report {
     private int score;
 
     public String getLevel() {
-        if (score < Practice.DEFAULT_SCORE * 2) return "FAT";
-        if (score < Practice.DEFAULT_SCORE * 3) return "ACTIVE";
-        if (score < Practice.DEFAULT_SCORE * 4) return "GOOD";
-        if (score < Practice.DEFAULT_SCORE * 5) return "HUMAN";
-        if (score < Practice.DEFAULT_SCORE * 6) return "MAN";
-        if (score < Practice.DEFAULT_SCORE * 7) return "CHARMER";
-        if (score < Practice.DEFAULT_SCORE * 8) return "ACTOR";
+        if (score < 50) return "FAT";
+        if (score < 75) return "ACTIVE";
+        if (score < 100) return "GOOD";
+        if (score < 125) return "HUMAN";
+        if (score < 150) return "MAN";
+        if (score < 175) return "CHARMER";
+        if (score < 200) return "ACTOR";
         return "HERO";
     }
 }

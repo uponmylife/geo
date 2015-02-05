@@ -11,7 +11,19 @@ import java.util.List;
 public class PracticeType {
     private Integer code;
     private String name;
-    public static String[] NAMES = {"simple meal", "rest a eating", "no night snack", "no alcohol", "3l water", "running", "10000 feet", "early sleep"};
+    public static String[] NAMES = {
+            "normal meal",
+            "rest a eating",
+            "night snack",
+            "alcohol",
+            "3l water",
+            "training",
+            "10k step",
+            "early sleep",
+            "day snack",
+            "+10k step",
+            "reading"
+    };
 
     public static int size() {
         return NAMES.length;
