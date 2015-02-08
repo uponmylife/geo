@@ -30,4 +30,8 @@ public class DateUtil {
         long day2 = date2.getTime() / DateUtils.MILLIS_PER_DAY;
         return (int) (day1 - day2);
     }
+
+    public static int systemDays(Date date) {
+        return (int) (date.getTime() / DateUtils.MILLIS_PER_DAY);
+    }
 }
