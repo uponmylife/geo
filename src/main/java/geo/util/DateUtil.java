@@ -34,4 +34,12 @@ public class DateUtil {
     public static int systemDays(Date date) {
         return (int) (date.getTime() / DateUtils.MILLIS_PER_DAY);
     }
+
+    public static int getSystemDayDaysAgo(int daysAgo) {
+        return systemDays(DateUtils.addDays(today(), -1 * daysAgo));
+    }
+
+    public static Date fromSystemDays(int day) {
+        return new Date(day * DateUtils.MILLIS_PER_DAY);
+    }
 }

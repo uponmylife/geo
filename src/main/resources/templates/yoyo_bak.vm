@@ -10,20 +10,20 @@
         <input type="radio" name="dayAgo" value="0"> Today
     </label>
     <label class="radio-inline">
-        <input type="radio" name="dayAgo" value="1"> Yesterday
+        <input type="radio" name="dayAgo" value="-1"> Yesterday
     </label>
 
     <div class="row">
         <div class="col-xs-6 col-xs-offset-1">
-            #foreach ($activity in $dayActivity.activities)
-                #if ($foreach.index == $dayActivity.activities.size()/2)
+            #foreach ($practiceType in $practiceTypes)
+                #if ($foreach.index == $practiceTypes.size()/2)
                 </div><div class="col-xs-5">
                 #end
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="activityCodes" value="$activity.type.code"
-                            #if ($activity.done) checked #end>
-                        <strong>$activity.type.name</strong> <small>$activity.type.score</small>
+                        <input type="checkbox" name="practices" value="$practiceType.code"
+                            #if ($formDefault.contains($practiceType.code)) checked #end>
+                        <strong> $practiceType.name </strong>
                     </label>
                 </div>
             #end
@@ -56,13 +56,13 @@
     <br>
 
     <table class="table table table-condensed">
-        #foreach ($dayActivity in $dayActivities)
+        #foreach ($rec in $records)
             <tr>
-                <td>$dayActivity.dateString</td>
-                #foreach ($activity in $dayActivity.activities)
-                    <td width="18">#if ($activity.done) <img src="/images/${activity.type.icon}.png" width="17" height="17"> #end</td>
+                <td>$rec.date</td>
+                #foreach ($practice in $rec.practices)
+                    <td width="18">#if ($practice) <img src="images/#icon($foreach.index)" width="18" height="18"> #end</td>
                 #end
-                <td class="text-right">$dayActivity.score</td>
+                <td class="text-right">$rec.score</td>
             </tr>
         #end
 
@@ -85,3 +85,16 @@ function toggleReportDetail(index) {
 }
 </script>
 
+#macro(icon $type)
+    #if ($type == 0) meal.png #end
+    #if ($type == 1) fasting.png #end
+    #if ($type == 2) snack.png #end
+    #if ($type == 3) drink.png #end
+    #if ($type == 4) water.png #end
+    #if ($type == 5) running.png #end
+    #if ($type == 6) foot.png #end
+    #if ($type == 7) sleep.png #end
+    #if ($type == 8) snack.png #end
+    #if ($type == 9) foot.png #end
+    #if ($type == 10) book.png #end
+#end

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.*;
 
 @Controller
-@RequestMapping("/yoyo")
-public class YoyoController {
+@RequestMapping("/yoyo_bak")
+public class YoyoControllerBak {
     @Autowired
     private PracticeRepository practiceRepository;
 

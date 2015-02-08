@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface DayRecordRepository extends CrudRepository<DayRecord, Integer> {
-    List<DayRecord> findByDateGreaterThanEqualOrderByDateDesc(Integer date);
+    List<DayRecord> findByDayGreaterThanEqualOrderByDayDesc(Integer day);
 }

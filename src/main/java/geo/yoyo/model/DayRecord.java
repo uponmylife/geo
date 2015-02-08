@@ -5,16 +5,15 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Entity(name = "yoyo.days")
+@Entity(name = "yoyo")
 @Data
 public class DayRecord {
     @Id
-    private int date;
+    private int day;
     private boolean a01;
     private boolean a02;
     private boolean a03;
@@ -24,6 +23,7 @@ public class DayRecord {
     private boolean a07;
     private boolean a08;
     private boolean a09;
+    private boolean a10;
     private boolean a11;
     private boolean a12;
     private boolean a13;
@@ -31,9 +31,9 @@ public class DayRecord {
     private boolean a15;
     private boolean a16;
 
-    public static DayRecord createNoActivitiesInstance(int date) {
+    public static DayRecord createNoActivitiesInstance(int day) {
         DayRecord dayRecord = new DayRecord();
-        dayRecord.setDate(date);
+        dayRecord.setDay(day);
         return dayRecord;
     }
 
@@ -43,11 +43,14 @@ public class DayRecord {
             Map<String, Object> objectMap = PropertyUtils.describe(this);
             for (String attr : objectMap.keySet()) {
                 Object obj = objectMap.get(attr);
-                if (obj instanceof Boolean) activities.add(new Activity(attr, (boolean)obj));
+                if (obj instanceof Boolean && ActivityType.hasCode(attr)) activities.add(new Activity(attr, (boolean)obj));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        activities.sort((a1, a2) -> a1.getType().getOrder() - a2.getType().getOrder());
+
         return activities;
     }
 
