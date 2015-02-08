@@ -29,6 +29,7 @@ public class DayActivity {
         return activities.stream().mapToInt((activity) -> activity.isDone() ? activity.getType().getScore() : 0).sum();
     }
 
+    // velocity
     public String getDateString() {
         return DateFormatUtils.format(fromSystemDays(day), "MM.dd");
     }

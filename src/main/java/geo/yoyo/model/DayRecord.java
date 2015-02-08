@@ -63,4 +63,19 @@ public class DayRecord {
             }
         }
     }
+
+    public List<Activity> activitiesForReport() {
+        List<Activity> activities = new ArrayList();
+        try {
+            Map<String, Object> objectMap = PropertyUtils.describe(this);
+            for (String attr : objectMap.keySet()) {
+                Object obj = objectMap.get(attr);
+                if (obj instanceof Boolean && ActivityType.hasCode(attr) && (boolean)obj) activities.add(new Activity(attr, true));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return activities;
+    }
 }

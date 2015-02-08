@@ -1,17 +1,16 @@
-package geo.yoyo.repository;
+package geo.yoyo.service;
 
 import geo.yoyo.model.DayActivity;
 import geo.yoyo.model.DayRecord;
+import geo.yoyo.repository.DayRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static geo.util.DateUtil.getSystemDayDaysAgo;
-
 @Repository
-public class DayActivityRepository {
+public class DayActivityService {
     @Autowired
     private DayRecordRepository dayRecordRepository;
 
@@ -23,14 +22,12 @@ public class DayActivityRepository {
     }
 
     public DayActivity findOne(int daysAgo) {
-        int systemDay = getSystemDayDaysAgo(daysAgo);
-        DayRecord dayRecord = dayRecordRepository.findOne(systemDay);
-        if (dayRecord == null) dayRecord = DayRecord.createNoActivitiesInstance(systemDay);
-        return new DayActivity(dayRecord);
+        return new DayActivity(dayRecordRepository.findOne(daysAgo));
     }
 
     public List<DayActivity> findRecentAll(int fromDaysAgo) {
-        List<DayRecord> dayRecords = dayRecordRepository.findByDayGreaterThanEqualOrderByDayDesc(getSystemDayDaysAgo(fromDaysAgo));
-        return dayRecords.stream().map((dayRecord) -> new DayActivity(dayRecord)).collect(Collectors.toList());
+        return dayRecordRepository.findRecentAll(fromDaysAgo).stream()
+                .map(dayRecord -> new DayActivity(dayRecord))
+                .collect(Collectors.toList());
     }
 }
